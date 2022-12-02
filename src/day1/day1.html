@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Day 1 | Advent of Code 2022</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>Day 1</h1>
+    <p><label for="puzzle_input">Puzzle input:</label></p>
+    <textarea id="puzzle_input"></textarea>
+    <p><button id="get_answer">Get answer</button></p>
+    <p>Part one: <span id="part_one"></span></p>
+    <p>Part two: <span id="part_two"></span></p>
+  </body>
+  <script type="module">
+    let puzzle_input = document.getElementById("puzzle_input");
+    puzzle_input.innerHTML = (await import("./day1.prod.js")).input;
+
+    let get_answer = document.getElementById("get_answer");
+    let part_one = document.getElementById("part_one");
+    let part_two = document.getElementById("part_two");
+
+    get_answer.addEventListener("click", () => {
+      // 72511
+      part_one.innerHTML = puzzle_input.value
+        .split("\n\n")
+        .map((elf) =>
+          elf
+            .split("\n")
+            .map((calorie) => parseInt(calorie, 10))
+            .reduce((acc, curr) => acc + curr, 0)
+        )
+        .sort((a, b) => b - a)
+        .at(0);
+
+      // 212117
+      part_two.innerHTML = puzzle_input.value
+        .split("\n\n")
+        .map((elf) =>
+          elf
+            .split("\n")
+            .map((calorie) => parseInt(calorie, 10))
+            .reduce((acc, curr) => acc + curr, 0)
+        )
+        .sort((a, b) => b - a)
+        .slice(0, 3)
+        .reduce((acc, curr) => acc + curr, 0);
+    });
+  </script>
+</html>
