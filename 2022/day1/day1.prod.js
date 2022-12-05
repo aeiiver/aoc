@@ -1,4 +1,4 @@
-export let input = `11223
+export let calories = `11223
 6323
 10725
 10761

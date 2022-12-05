@@ -1,4 +1,4 @@
 /secret
 
 # Rust
-/src/*/target
+/**/target
