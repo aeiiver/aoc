@@ -1,4 +1,14 @@
 /secret
 
+### Artifacts
+/**/*.o
+/**/*.out
+/**/*.exe
 # Rust
 /**/target
+# OCaml
+/**/*.cmi
+/**/*.cmo
+/**/*.cmx
+# Java
+/**/*.class
