@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 1 - Advent of Code 2022</title>
+  </head>
+
+  <body style="font-family: sans">
+    <div>
+      <h1>Day 1</h1>
+      <p>
+        <label for="load-test">Load test input:</label>
+        <button id="load-test">Load</button>
+      </p>
+      <p>
+        <label for="load-prod">Load production input:</label>
+        <button id="load-prod">Load</button>
+      </p>
+      <p><label for="problem-input">Puzzle input:</label></p>
+      <textarea id="problem-input"></textarea>
+      <p><button id="solve">Solve</button></p>
+      <p>Part one: <span id="part-one"></span></p>
+      <p>Part two: <span id="part-two"></span></p>
+    </div>
+  </body>
+
+  <script type="module">
+    let problemInput = document.getElementById("problem-input");
+    let loadTestButton = document.getElementById("load-test");
+    let loadProdButton = document.getElementById("load-prod");
+
+    loadTestButton.addEventListener("click", async () => {
+      problemInput.innerHTML = (await import("./input-test.js")).calories;
+    });
+    loadProdButton.addEventListener("click", async () => {
+      problemInput.innerHTML = (await import("./input-prod.js")).calories;
+    });
+
+    let solveButton = document.getElementById("solve");
+    let partOne = document.getElementById("part-one");
+    let partTwo = document.getElementById("part-two");
+
+    solveButton.addEventListener("click", () => {
+      // 72511
+      partOne.innerHTML = problemInput.value
+        .split("\n\n")
+        .map((elf) =>
+          elf
+            .split("\n")
+            .map((calorie) => parseInt(calorie, 10) || 0)
+            .reduce((acc, cur) => acc + cur, 0)
+        )
+        .sort((a, b) => b - a)
+        .at(0);
+
+      // 212117
+      partTwo.innerHTML = problemInput.value
+        .split("\n\n")
+        .map((elf) =>
+          elf
+            .split("\n")
+            .map((calorie) => parseInt(calorie, 10) || 0)
+            .reduce((acc, cur) => acc + cur, 0)
+        )
+        .sort((a, b) => b - a)
+        .slice(0, 3)
+        .reduce((acc, cur) => acc + cur, 0);
+    });
+  </script>
+</html>
