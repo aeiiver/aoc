@@ -1,10 +1,10 @@
 fn main() {
-    let game_plan = include_bytes!("./day2.prod");
+    let input = include_bytes!("./input-prod");
 
     // 15572
     println!(
         "{:?}",
-        game_plan
+        input
             .split(|&byte| byte == b'\n')
             .map(|round| {
                 let abc = (round[0] - b'A') as i8;
@@ -18,7 +18,7 @@ fn main() {
     // 16098
     println!(
         "{:?}",
-        game_plan
+        input
             .split(|&b| b == b'\n')
             .map(|round| {
                 let abc = round[0] - b'A';
