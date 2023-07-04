@@ -26,24 +26,23 @@
   </body>
 
   <script type="module">
+    // Vanilla is looking kinda cute
     let problemInput = document.getElementById("problem-input");
     let loadTestButton = document.getElementById("load-test");
     let loadProdButton = document.getElementById("load-prod");
+    let solveButton = document.getElementById("solve");
+    let partOneField = document.getElementById("part-one");
+    let partTwoField = document.getElementById("part-two");
 
     loadTestButton.addEventListener("click", async () => {
-      problemInput.innerHTML = (await import("./input-test.js")).calories;
+      problemInput.innerHTML = (await import("./day01-test.js")).calories;
     });
     loadProdButton.addEventListener("click", async () => {
-      problemInput.innerHTML = (await import("./input-prod.js")).calories;
+      problemInput.innerHTML = (await import("./day01-prod.js")).calories;
     });
-
-    let solveButton = document.getElementById("solve");
-    let partOne = document.getElementById("part-one");
-    let partTwo = document.getElementById("part-two");
-
     solveButton.addEventListener("click", () => {
       // 72511
-      partOne.innerHTML = problemInput.value
+      partOneField.innerHTML = problemInput.value
         .split("\n\n")
         .map((elf) =>
           elf
@@ -55,7 +54,7 @@
         .at(0);
 
       // 212117
-      partTwo.innerHTML = problemInput.value
+      partTwoField.innerHTML = problemInput.value
         .split("\n\n")
         .map((elf) =>
           elf
