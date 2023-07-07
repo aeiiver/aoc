@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -25,42 +25,50 @@
     </div>
   </body>
 
-  <script type="module">
+  <script>
     // Vanilla is looking kinda cute
-    let problemInput = document.getElementById("problem-input");
-    let loadTestButton = document.getElementById("load-test");
-    let loadProdButton = document.getElementById("load-prod");
-    let solveButton = document.getElementById("solve");
-    let partOneField = document.getElementById("part-one");
-    let partTwoField = document.getElementById("part-two");
+    let input = document.getElementById("problem-input");
+    let loadTest = document.getElementById("load-test");
+    let loadProd = document.getElementById("load-prod");
 
-    loadTestButton.addEventListener("click", async () => {
-      problemInput.innerHTML = (await import("./day01-test.js")).calories;
+    loadTest.addEventListener("click", async () => {
+      fetch("/input-test")
+        .then((data) => data.text())
+        .then((text) => (input.innerHTML = text))
+        .catch((error) => alert("input-test couldn't load gg"));
     });
-    loadProdButton.addEventListener("click", async () => {
-      problemInput.innerHTML = (await import("./day01-prod.js")).calories;
+    loadProd.addEventListener("click", async () => {
+      fetch("/input-prod")
+        .then((data) => data.text())
+        .then((text) => (input.innerHTML = text))
+        .catch((error) => alert("input-prod couldn't load gg"));
     });
-    solveButton.addEventListener("click", () => {
+
+    let solve = document.getElementById("solve");
+    let partOne = document.getElementById("part-one");
+    let partTwo = document.getElementById("part-two");
+
+    solve.addEventListener("click", () => {
       // 72511
-      partOneField.innerHTML = problemInput.value
+      partOne.innerHTML = input.value
         .split("\n\n")
         .map((elf) =>
           elf
             .split("\n")
             .map((calorie) => parseInt(calorie, 10) || 0)
-            .reduce((acc, cur) => acc + cur, 0)
+            .reduce((acc, cur) => acc + cur, 0),
         )
         .sort((a, b) => b - a)
         .at(0);
 
       // 212117
-      partTwoField.innerHTML = problemInput.value
+      partTwo.innerHTML = input.value
         .split("\n\n")
         .map((elf) =>
           elf
             .split("\n")
             .map((calorie) => parseInt(calorie, 10) || 0)
-            .reduce((acc, cur) => acc + cur, 0)
+            .reduce((acc, cur) => acc + cur, 0),
         )
         .sort((a, b) => b - a)
         .slice(0, 3)

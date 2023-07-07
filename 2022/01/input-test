@@ -1,4 +1,4 @@
-export let calories = `1000
+1000
 2000
 3000
 
@@ -11,4 +11,4 @@ export let calories = `1000
 8000
 9000
 
-10000`;
+10000
