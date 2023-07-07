@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-rucksacks = (File.read './day03-prod').split("\n")
+rucksacks = (File.read './input-prod').split("\n")
 
 # 7980
 p(rucksacks.map.sum do |sack|
