@@ -1,18 +1,18 @@
 fn main() {
-    let input = include_bytes!("./input-prod");
+    let input = include_str!("./input-prod");
 
     // 15572
     println!(
         "{:?}",
         input
-            .split(|&byte| byte == b'\n')
-            .take_while(|round| !round.is_empty())
+            .lines()
             .map(|round| {
+                let round = round.as_bytes();
                 let abc = round[0] - b'A';
                 let xyz = round[2] - b'X';
                 let win_score = [3, 0, 6][(3 + abc - xyz).rem_euclid(3) as usize];
-                let shape_score = (xyz + 1) as u32;
-                win_score + shape_score
+                let shape_score = xyz + 1;
+                win_score + shape_score as u32
             })
             .sum::<u32>()
     );
@@ -21,14 +21,14 @@ fn main() {
     println!(
         "{:?}",
         input
-            .split(|&byte| byte == b'\n')
-            .take_while(|round| !round.is_empty())
+            .lines()
             .map(|round| {
+                let round = round.as_bytes();
                 let abc = round[0] - b'A';
                 let xyz = round[2] - b'X';
-                let win_score = [0, 3, 6][xyz as usize] as u32;
-                let shape_score = ((abc + [2, 0, 1][xyz as usize]).rem_euclid(3) + 1) as u32;
-                win_score + shape_score
+                let win_score = [0, 3, 6][xyz as usize];
+                let shape_score = (abc + [2, 0, 1][xyz as usize]).rem_euclid(3) + 1;
+                win_score + shape_score as u32
             })
             .sum::<u32>()
     );
