@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
       std::string buf_str = std::string(buf).substr(sizeof "  Starting items:");
 
       std::vector<char *> buf_parts = {};
-      split_str(", ", buf_str.data(), buf_parts);
+      split_str(", ", (char *)buf_str.c_str(), buf_parts);
       for (char *item : buf_parts) {
         items.push_back(std::atoi(item));
       }
