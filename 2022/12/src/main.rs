@@ -22,9 +22,7 @@ struct Heightmap {
 
 impl Heightmap {
     fn new(map: Vec<Vec<char>>) -> Self {
-        Self {
-            data: map.to_owned(),
-        }
+        Self { data: map }
     }
 
     fn height(&self) -> usize {
@@ -32,7 +30,7 @@ impl Heightmap {
     }
 
     fn width(&self) -> usize {
-        if self.data.len() == 0 {
+        if self.data.is_empty() {
             return 0;
         }
         self.data.first().unwrap().len()
@@ -60,7 +58,7 @@ struct Search {
 impl Search {
     fn new(heightmap: Heightmap, compare: fn(char, char) -> bool) -> Self {
         Self {
-            map: heightmap.to_owned(),
+            map: heightmap,
             compare,
         }
     }
@@ -90,9 +88,7 @@ impl Search {
             }
         }
 
-        if let None = target_pos {
-            return None;
-        }
+        target_pos?;
         let mut curr = target_pos.unwrap();
         let mut path = VecDeque::new();
         while let Some(pos) = prev[curr.y][curr.x] {
@@ -137,7 +133,7 @@ impl Search {
     }
 
     fn can_walk(&self, from: &Position, to: &Position) -> bool {
-        (self.compare)(self.map.value_at(&from), self.map.value_at(&to))
+        (self.compare)(self.map.value_at(from), self.map.value_at(to))
     }
 }
 
@@ -166,9 +162,7 @@ fn main() {
     });
 
     // to reach the height you're at, you need to switch your perspective
-    let backward_search = Search::new(map.to_owned(), |from, to| {
-        to >= from || (to as u32) + 1 == from as u32
-    });
+    let backward_search = Search::new(map, |from, to| to >= from || (to as u32) + 1 == from as u32);
 
     // part one: 528
     let part_one = forward_search
