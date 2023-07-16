@@ -4,8 +4,7 @@ fn main() {
     let mut stack: Vec<u32> = vec![];
 
     for line in input {
-        if line.starts_with("$ cd ") {
-            let dir = &line["$ cd ".len()..];
+        if let Some(dir) = line.strip_prefix("$ cd ") {
             match dir {
                 ".." => {
                     let popped = stack.pop().expect("input has no errors");
@@ -17,19 +16,18 @@ fn main() {
                 }
             }
         } else if line.starts_with(|char: char| char.is_ascii_digit()) {
-            let (size, _) = line.split_once(" ").expect("input has no errors");
+            let (size, _) = line.split_once(' ').expect("input has no errors");
             *stack.last_mut().expect("input has no errors") +=
                 size.parse::<u32>().expect("input has no errors");
         }
     }
 
-    while stack.len() > 0 {
+    while !stack.is_empty() {
         let popped = stack.pop().expect("no way :clueless:");
         let parent = stack.last_mut();
         // the very last item we pop has no parent
-        match parent {
-            Some(size) => *size += popped,
-            None => (),
+        if let Some(size) = parent {
+            *size += popped;
         }
         dirs.push(popped);
     }
